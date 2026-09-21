@@ -14,6 +14,4 @@ suspend fun main() {
 
 suspend fun <T> suspendCoroutineWithTypedOutput(t: T): T = suspendCancellableCoroutine { continuation ->
     continuation.resume(t)
-
-
 }

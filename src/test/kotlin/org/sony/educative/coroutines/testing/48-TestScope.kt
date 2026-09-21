@@ -1,0 +1,30 @@
+package org.sony.educative.coroutines.testing
+
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.currentTime
+import kotlinx.coroutines.test.runCurrent
+import kotlin.time.Duration.Companion.milliseconds
+
+@ExperimentalCoroutinesApi
+fun main() {
+    val scope = TestScope()
+
+    scope.launch {
+        delay(1000.milliseconds)
+        println("First done")
+        delay(1000.milliseconds)
+        println("Coroutine done")
+    }
+
+    println("[${scope.currentTime}] Before") // [0] Before
+    scope.advanceTimeBy(1000.milliseconds)
+    scope.runCurrent() // First done
+    println("[${scope.currentTime}] Middle") // [1000] Middle
+    scope.advanceUntilIdle() // Coroutine done
+    println("[${scope.currentTime}] After") // [2000] After
+}

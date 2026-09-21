@@ -11,7 +11,7 @@ interface CallBack<T> {
 
 data class User(val id: Long, val name: String, val age: Int)
 
-fun getUser(id: Long, callback: CallBack<User>) {
+private fun getUser(id: Long, callback: CallBack<User>) {
     val user = when (id) {
         1L -> User(id, "John", 30)
         2L -> User(id, "Jane",  35)
@@ -25,7 +25,7 @@ suspend fun main () {
 }
 
 
-suspend fun fetchUser(id: Long): User {
+private suspend fun fetchUser(id: Long): User {
     return suspendCancellableCoroutine { continuation ->
         getUser(id, object : CallBack<User> {
             override fun onSuccess(result: User) {
