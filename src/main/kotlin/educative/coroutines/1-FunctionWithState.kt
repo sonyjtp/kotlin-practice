@@ -30,7 +30,7 @@ private fun myFunction(continuation: Continuation<Unit>): Any {
         counter = 0
         continuation.counter = counter
         continuation.label = 1
-        if (delay(1000, continuation) == COROUTINE_SUSPENDED){
+        if (delay2(1000, continuation) == COROUTINE_SUSPENDED){
             return COROUTINE_SUSPENDED
         }
     }
@@ -71,7 +71,7 @@ private val executor = Executors.newSingleThreadScheduledExecutor {
     Thread(it, "scheduler").apply { isDaemon = true }
 }
 
-fun delay(timeMillis: Long, continuation: Continuation<Unit>): Any {
+fun delay2(timeMillis: Long, continuation: Continuation<Unit>): Any {
     executor.schedule({ continuation.resume(Unit) }, timeMillis, TimeUnit.MILLISECONDS)
     return COROUTINE_SUSPENDED
 }

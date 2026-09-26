@@ -26,7 +26,7 @@ private fun myFunction(continuation: Continuation<Unit>): Any {
         continuation.label = 1
         // a task is scheduled in the background "scheduler" daemon thread to fire in 1000 ms, and delay immediately
         // returns COROUTINE_SUSPENDED, propagating "I paused" up to the caller.
-        if (delay(1000, continuation) == COROUTINE_SUSPENDED){
+        if (delay2(1000, continuation) == COROUTINE_SUSPENDED){
             return COROUTINE_SUSPENDED
         }
     }
